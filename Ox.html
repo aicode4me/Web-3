@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Tic-Tac-Toe</title>
+    <style>
+        /* Futuristic Neon Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c1c1c);
+            background-size: 400% 400%;
+            animation: backgroundShift 8s infinite linear;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            text-shadow: 0 0 15px cyan;
+            font-size: 2rem;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid cyan;
+            box-shadow: 0 0 10px cyan;
+            transition: 0.3s;
+        }
+        .cell:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px cyan;
+        }
+        .x {
+            color: #ff4081;
+            text-shadow: 0 0 15px #ff4081;
+        }
+        .o {
+            color: cyan;
+            text-shadow: 0 0 15px cyan;
+        }
+        .winner {
+            animation: glow 1s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 15px lime; }
+            to { text-shadow: 0 0 30px lime; }
+        }
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: cyan;
+            border: none;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+            transition: 0.3s;
+        }
+        .reset-btn:hover {
+            box-shadow: 0 0 20px cyan;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✨ Neon Tic-Tac-Toe ✨</h1>
+    <div class="board" id="board"></div>
+    <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameOver = false;
+
+        function createBoard() {
+            const boardElement = document.getElementById("board");
+            boardElement.innerHTML = "";
+            board.forEach((cell, index) => {
+                let cellDiv = document.createElement("div");
+                cellDiv.classList.add("cell");
+                cellDiv.innerText = cell;
+                if (cell === "X") cellDiv.classList.add("x");
+                if (cell === "O") cellDiv.classList.add("o");
+                cellDiv.addEventListener("click", () => makeMove(index));
+                boardElement.appendChild(cellDiv);
+            });
+        }
+
+        function makeMove(index) {
+            if (board[index] === "" && !gameOver) {
+                board[index] = currentPlayer;
+                checkWinner();
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                createBoard();
+            }
+        }
+
+        function checkWinner() {
+            const winningPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6] // Diagonals
+            ];
+
+            winningPatterns.forEach(pattern => {
+                const [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    gameOver = true;
+                    document.querySelectorAll(".cell")[a].classList.add("winner");
+                    document.querySelectorAll(".cell")[b].classList.add("winner");
+                    document.querySelectorAll(".cell")[c].classList.add("winner");
+                    setTimeout(() => alert(`${board[a]} Wins!`), 300);
+                }
+            });
+
+            if (!board.includes("") && !gameOver) {
+                gameOver = true;
+                setTimeout(() => alert("It's a Draw!"), 300);
+            }
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            gameOver = false;
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Idea Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1f1f1f, #343a40);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        select {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        button {
+            background: #61dafb;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff4081;
+            color: white;
+        }
+        .output-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🎥 YouTube Video Idea Generator</h2>
+        <p>Select a category and generate unique video ideas:</p>
+        
+        <select id="category">
+            <option value="tech">📱 Tech</option>
+            <option value="vlog">📸 Vlogs</option>
+            <option value="gaming">🎮 Gaming</option>
+            <option value="tutorial">📚 Tutorials</option>
+            <option value="entertainment">🎭 Entertainment</option>
+        </select>
+        
+        <button onclick="generateIdea()">Generate Video Idea</button>
+        
+        <div class="output-box">
+            <span id="videoIdea">Your video idea will appear here...</span>
+        </div>
+
+        <button onclick="copyIdea()">Copy Idea</button>
+        <button onclick="downloadIdea()">Download Idea</button>
+    </div>
+
+    <script>
+        function generateIdea() {
+            const categories = {
+                tech: [
+                    "Unboxing the latest smartphone - Is it worth it?",
+                    "Top 5 must-have tech gadgets for 2025",
+                    "Exploring AI tools: How can they improve productivity?",
+                    "Building a budget gaming PC - Full Guide",
+                    "Best camera setups for YouTube creators"
+                ],
+                vlog: [
+                    "A day in my life - Behind the scenes vlog",
+                    "Travel vlog: Exploring a hidden gem in my city",
+                    "Trying a 24-hour food challenge!",
+                    "Morning routine vs Night routine - Which is better?",
+                    "Reacting to my first-ever vlog!"
+                ],
+                gaming: [
+                    "Playing the hardest level in [Game Name]!",
+                    "Top 10 gaming accessories for pro players",
+                    "Reacting to my old gaming clips!",
+                    "Can I win a game with only one weapon?",
+                    "The most underrated games you should try"
+                ],
+                tutorial: [
+                    "How to edit videos like a pro (Step-by-step guide)",
+                    "Beginner's guide to coding in Python",
+                    "Top 3 ways to make money online in 2025",
+                    "How to start a successful YouTube channel",
+                    "The best free tools for graphic design"
+                ],
+                entertainment: [
+                    "Trying weird TikTok life hacks - Do they work?",
+                    "Funniest meme reactions of the week!",
+                    "Ultimate prank war - Who will win?",
+                    "Interviewing strangers with crazy questions",
+                    "Challenge: Guess the song in 3 seconds!"
+                ]
+            };
+
+            let selectedCategory = document.getElementById("category").value;
+            let ideas = categories[selectedCategory];
+            let randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
+
+            document.getElementById("videoIdea").textContent = randomIdea;
+        }
+
+        function copyIdea() {
+            let ideaText = document.getElementById("videoIdea").textContent;
+            navigator.clipboard.writeText(ideaText).then(() => {
+                alert("Idea copied to clipboard!");
+            });
+        }
+
+        function downloadIdea() {
+            let ideaText = document.getElementById("videoIdea").textContent;
+            let blob = new Blob([ideaText], { type: "text/plain" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "YouTube_Video_Idea.txt";
+            link.click();
+        }
+    </script>
+
+</body>
+</html>

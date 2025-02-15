@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Card Hover Effect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #121212;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+        .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="glow"></div>
+        <div class="content">Magic Card</div>
+    </div>
+
+    <script>
+        const card = document.querySelector('.card');
+        const glow = document.querySelector('.glow');
+
+        card.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = card.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+
+            glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0) 70%)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            glow.style.background = `radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%)`;
+        });
+    </script>
+</body>
+</html>

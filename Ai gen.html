@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Logo & AI Image Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1f1f1f, #343a40);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        input, select {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        button {
+            background: #61dafb;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff4081;
+            color: white;
+        }
+        .output-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Manual Logo Generator -->
+    <div class="container">
+        <h2>🎨 Manual Logo Generator</h2>
+        <p>Enter your brand name and customize your logo:</p>
+        <input type="text" id="brandName" placeholder="Enter Brand Name...">
+        <select id="fontStyle">
+            <option value="Poppins">Modern</option>
+            <option value="Arial">Simple</option>
+            <option value="Cursive">Creative</option>
+        </select>
+        <input type="color" id="fontColor" value="#61dafb">
+        <select id="icon">
+            <option value="🚀">🚀 Rocket</option>
+            <option value="🔥">🔥 Fire</option>
+            <option value="💡">💡 Lightbulb</option>
+            <option value="🎨">🎨 Art</option>
+        </select>
+        <button onclick="generateLogo()">Generate Logo</button>
+        
+        <div class="output-box">
+            <span id="logoText" class="logo">Your Logo</span>
+        </div>
+        <button onclick="downloadLogo()">Download Logo</button>
+    </div>
+
+    <!-- Random Logo Generator -->
+    <div class="container">
+        <h2>🎲 Random Logo Generator</h2>
+        <p>Click to generate a random logo:</p>
+        <button onclick="randomLogo()">Generate Random Logo</button>
+        
+        <div class="output-box">
+            <span id="randomLogoText" class="logo">Random Logo</span>
+        </div>
+        <button onclick="downloadRandomLogo()">Download Logo</button>
+    </div>
+
+    <!-- AI Image Generator -->
+    <div class="container">
+        <h2>🤖 AI Image Generator</h2>
+        <p>Enter a prompt and generate an image:</p>
+        <input type="text" id="imagePrompt" placeholder="Describe the image...">
+        <button onclick="generateImage()">Generate Image</button>
+
+        <div class="output-box">
+            <img id="aiImage" src="https://via.placeholder.com/400" alt="Generated Image">
+        </div>
+        <button onclick="downloadImage()">Download Image</button>
+    </div>
+
+    <script>
+        function generateLogo() {
+            let brandName = document.getElementById("brandName").value;
+            let fontStyle = document.getElementById("fontStyle").value;
+            let fontColor = document.getElementById("fontColor").value;
+            let icon = document.getElementById("icon").value;
+
+            if (!brandName) {
+                alert("Please enter a brand name!");
+                return;
+            }
+
+            let logoText = document.getElementById("logoText");
+            logoText.textContent = icon + " " + brandName;
+            logoText.style.fontFamily = fontStyle;
+            logoText.style.color = fontColor;
+        }
+
+        function randomLogo() {
+            let words = ["Nova", "Tech", "Vision", "Xpert", "Cyber", "Next", "Flow", "Edge"];
+            let icons = ["🚀", "🔥", "💡", "🎨", "🔮", "🔧", "📱", "⚡"];
+            let fonts = ["Poppins", "Arial", "Cursive"];
+            let colors = ["#61dafb", "#ff4081", "#f39c12", "#2ecc71", "#e74c3c"];
+
+            let brandName = words[Math.floor(Math.random() * words.length)] + " " + words[Math.floor(Math.random() * words.length)];
+            let icon = icons[Math.floor(Math.random() * icons.length)];
+            let font = fonts[Math.floor(Math.random() * fonts.length)];
+            let color = colors[Math.floor(Math.random() * colors.length)];
+
+            let logoText = document.getElementById("randomLogoText");
+            logoText.textContent = icon + " " + brandName;
+            logoText.style.fontFamily = font;
+            logoText.style.color = color;
+        }
+
+        function downloadLogo() {
+            let logoText = document.getElementById("logoText");
+            createLogoCanvas(logoText.textContent, logoText.style.fontFamily, logoText.style.color);
+        }
+
+        function downloadRandomLogo() {
+            let logoText = document.getElementById("randomLogoText");
+            createLogoCanvas(logoText.textContent, logoText.style.fontFamily, logoText.style.color);
+        }
+
+        function createLogoCanvas(text, font, color) {
+            let canvas = document.createElement("canvas");
+            let ctx = canvas.getContext("2d");
+
+            canvas.width = 400;
+            canvas.height = 200;
+
+            ctx.fillStyle = "#1f1f1f";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = color;
+            ctx.font = `40px ${font}`;
+            ctx.textAlign = "center";
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2 + 10);
+
+            let link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "logo.png";
+            link.click();
+        }
+
+        function generateImage() {
+            let prompt = document.getElementById("imagePrompt").value;
+
+            if (!prompt) {
+                alert("Please enter an image description!");
+                return;
+            }
+
+            document.getElementById("aiImage").src = "https://via.placeholder.com/400?text=" + encodeURIComponent(prompt);
+        }
+
+        function downloadImage() {
+            let img = document.getElementById("aiImage").src;
+            let link = document.createElement("a");
+            link.href = img;
+            link.download = "generated-image.png";
+            link.click();
+        }
+    </script>
+
+</body>
+</html>

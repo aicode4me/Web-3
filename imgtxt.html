@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        textarea {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image to Text Converter</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <button id="convertButton">Convert to Text</button>
+        <div class="loading" id="loading">Processing...</div>
+        <h2>Extracted Text:</h2>
+        <textarea id="outputText" rows="10" placeholder="Converted text will appear here..."></textarea>
+    </div>
+    <script src="https://cdn.rawgit.com/naptha/tesseract.js/2.1.1/dist/tesseract.min.js"></script>
+    <script>
+        document.getElementById('convertButton').addEventListener('click', function() {
+            const imageInput = document.getElementById('imageInput');
+            const outputText = document.getElementById('outputText');
+            const loading = document.getElementById('loading');
+
+            if (imageInput.files.length === 0) {
+                alert('Please upload an image file.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+
+                img.onload = function() {
+                    loading.style.display = 'block'; // Show loading message
+
+                    Tesseract.recognize(
+                        img,
+                        'eng',
+                        {
+                            logger: info => console.log(info) // Optional: log progress
+                        }
+                    ).then(({ data: { text } }) => {
+                        outputText.value = text;
+                        loading.style.display = 'none'; // Hide loading message
+                    }).catch(err => {
+                        console.error(err);
+                        alert('Error occurred while processing the image.');
+                        loading.style.display = 'none'; // Hide loading message
+                    });
+                };
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3Schools</title>
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #121212, #1a1a1a);
+            color: white;
+            text-align: center;
+            transition: background 0.3s ease-in-out;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, cyan, magenta);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav ul {
+            list-style: none;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: 0.3s;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        nav ul li a:hover {
+            color: #ff4081;
+            text-shadow: 0px 0px 10px #ff4081;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 80px 10%;
+        }
+        .hero h2 {
+            font-size: 2.8rem;
+            color: cyan;
+            text-shadow: 0px 0px 15px cyan;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        /* Cards */
+        .cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 25px;
+            width: 280px;
+            margin: 15px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.4);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            color: cyan;
+        }
+        .card p {
+            font-size: 1rem;
+            opacity: 0.8;
+         }
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            color: white;
+            background: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .card a:hover {
+            background: #0b0b37;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background: linear-gradient(135deg, #000, #121212);
+        }
+        .dark-mode h2, .dark-mode h3 {
+            color: #00ffff;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Dark Mode Toggle */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .toggle-btn:hover {
+            background: #61dafb;
+        }
+
+
+
+
+/* CSS */
+.card a  {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.card a :focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.card a :hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.card a :active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+    </style>
+</head>
+<body>
+
+ <!--     <button class="toggle-btn" onclick="toggleDarkMode()">Dark Mode</button>        --> 
+
+    <header>
+        <h1>🚀 Web3Schools</h1>
+        <nav>
+            <ul>
+                <li><a href="tutorials/html.html">HTML</a></li>
+                <li><a href="tutorials/css.html">CSS</a></li>
+                <li><a href="tutorials/js.html">JavaScript</a></li>
+                <li><a href="editor.html">Try Code</a></li>
+                <nav>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Learn to Code with Interactive Tutorials</h2>
+        <p>Master HTML, CSS, and JavaScript with hands-on coding exercises and real-time examples.</p>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <h3>📖 Learn HTML</h3>
+            <p>Start with the basics of structuring web pages using HTML.</p>
+            <a href="tutorials/html.html">Start Learning</a>
+        </div>
+        <div class="card">
+            <h3>🎨 Learn CSS</h3>
+            <p>Style your web pages with modern CSS techniques.</p>
+            <a href="tutorials/css.html">Start Learning</a>
+        </div>
+        <div class="card">
+            <h3>⚡ Learn JavaScript</h3>
+            <p>Make your website dynamic with JavaScript.</p>
+            <a href="tutorials/js.html">Start Learning</a>
+        </div>
+        <div class="card">
+            <h3>🖥️ Try Code Editor</h3>
+            <p>Write and execute your code instantly.</p>
+            <a class="button-29" href="editor.html">Try Now</a>
+        </div>
+    </section>
+
+
+
+
+    <section class="cards">
+        <div class="card">
+            <h3>Futuristic 3D Snake Game</h3>
+            
+            <a href="Snake.html">Start Playing</a>
+        </div>
+        <div class="card">
+            <h3>Rock Paper Scissors</h3>
+            
+            <a href="Rock.html">Start Playing</a>
+        </div>
+        <div class="card">
+            <h3>✨ Neon Tic-Tac-Toe ✨</h3>
+           
+            <a href="Ox.html">Start Playing</a>
+        </div>
+        <div class="card">
+            <h3>YouTube Video Idea Generator</h3>
+            <p>Select a category and generate unique video ideas:</p>
+            <a href="Yt.html">Idea</a>
+        </div>
+    </section>
+
+<section class="cards">
+        <div class="card">
+            <h3>Ai Gen</h3>
+            <p>Random Logo Generator</p>
+            <a href="Ai gen.html">Start Learning</a>
+        </div>
+         <div class="card">
+            <h3>txt</h3>
+            <p>image txt Generator</p>
+            <a href="imgtxt.html">Start Learning</a>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <p>© 2025 Web3Schools - Happy Coding! 💻</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>

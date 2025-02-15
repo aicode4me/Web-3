@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Tutorial</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #282c34;
+            padding: 15px;
+            text-align: center;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #61dafb;
+            border-radius: 5px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        pre {
+            background: #222;
+            color: #61dafb;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 16px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            margin: 20px auto;
+            transition: 0.3s;
+        }
+        .run-area {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #222;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎨 CSS Tutorial</h1>
+        <nav>
+            <ul>
+                <li><a href="html.html">HTML</a></li>
+                <li><a href="js.html">JavaScript</a></li>
+                <li><a href="../index.html">🏠 Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="content">
+        <h2>🚀 Introduction to CSS</h2>
+        <p>CSS (Cascading Style Sheets) is used to style HTML elements.</p>
+
+        <h3>📝 Basic CSS Example</h3>
+        <pre>
+            <code>
+/* Make text red */
+h1 {
+    color: red;
+}
+
+/* Style a box */
+.box {
+    width: 100px;
+    height: 100px;
+    background: blue;
+    transition: 0.3s;
+}
+            </code>
+        </pre>
+
+        <h3>🎯 Try Changing Box Color</h3>
+        <div class="run-area">
+            <div class="box" id="colorBox"></div>
+            <button onclick="changeColor()">Change Color</button>
+        </div>
+    </section>
+
+    <script>
+        function changeColor() {
+            let box = document.getElementById("colorBox");
+            box.style.backgroundColor = box.style.backgroundColor === "blue" ? "red" : "blue";
+        }
+    </script>
+
+    <footer>
+        <p>© 2025 Web3Schools - Happy Coding! 💻</p>
+    </footer>
+
+</body>
+</html>
